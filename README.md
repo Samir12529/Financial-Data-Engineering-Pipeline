@@ -69,3 +69,8 @@ To prove the real-time nature of the pipeline:
 ![Snowflake Chart After Update](snowflake_line2.png)
 
 **Interpretation:** By comparing the two charts, you can clearly see the lines extending further to the right in the second image. Each line represents a different stock ticker (AAPL, AMZN, GOOGL, MSFT, TSLA). The extension of these lines proves that the pipeline successfully captured new data points from the live API, streamed them through Kafka, orchestrated them via Airflow, and appended them to the Snowflake warehouse in real-time.
+
+## dbt Transformation
+To guarantee the data is clean and business-ready before it reaches the Power BI dashboard, this project uses dbt (Data Build Tool). The lineage graph below illustrates the Snowflake architecture: raw JSON data is ingested into the **Bronze** layer, flattened and cleaned in the **Silver** layer, and finally aggregated into key performance indicators (KPIs) in the **Gold** layer. This automated process ensures that the final business visualizations are always powered by accurate and structured data.
+
+![dbt Lineage Graph](dbt_lineage.png)
