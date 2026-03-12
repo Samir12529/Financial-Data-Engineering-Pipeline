@@ -1,0 +1,4 @@
+kafka-python
+requests
+minio
+boto3

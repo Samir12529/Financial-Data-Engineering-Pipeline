@@ -41,3 +41,31 @@ This project is a fully automated pipeline that continuously pulls live stock ma
 5. Airflow orchestrates ingestion into Snowflake
 6. dbt applies transformations
 7. Connect Power BI to Snowflake for visualization
+
+## A First Quick Check: Verifying the Airflow Pipeline
+To verify that the automated pipeline is successfully moving data, you can check the Apache Airflow dashboard. 
+1. Navigate to your Airflow web interface.
+2. Click on the `minio_to_snowflake` DAG.
+3. Click on the **Graph** tab. 
+
+Here, you can visually monitor the task execution. A dark green border around the boxes confirms that the Python tasks successfully executed, proving that data was downloaded from MinIO and successfully loaded into Snowflake.
+
+![Airflow Graph](airflow_graph.png)
+
+## A Second Quick Check: Real-Time Data Visualization in Snowflake
+While Power BI is the primary visualization tool for this project, you can quickly prove the real-time streaming capabilities directly inside Snowflake using its built-in charting feature.
+
+1. Log into Snowflake and open a SQL Worksheet.
+2. Run a query to extract and flatten the live JSON data from the `bronze_stocks_quotes_raw` table.
+3. Click the **Chart** button above the results to generate a Line Chart (X-Axis: Time, Y-Axis: Price, Series: Symbol).
+
+![Snowflake Chart Before Update](snowflake_line1.png)
+
+To prove the real-time nature of the pipeline:
+1. Return to the Airflow dashboard and manually click the **Play** button -> **Trigger DAG** to fetch a new batch of live market prices.
+2. Wait for the Airflow tasks to turn green.
+3. Return to Snowflake and re-run the exact same SQL query.
+
+![Snowflake Chart After Update](snowflake_line2.png)
+
+**Interpretation:** By comparing the two charts, you can clearly see the lines extending further to the right in the second image. Each line represents a different stock ticker (AAPL, AMZN, GOOGL, MSFT, TSLA). The extension of these lines proves that the pipeline successfully captured new data points from the live API, streamed them through Kafka, orchestrated them via Airflow, and appended them to the Snowflake warehouse in real-time.

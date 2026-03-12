@@ -17,7 +17,7 @@ bucket_name = "bronze-transactions"
 # Defining Consumer
 consumer = KafkaConsumer(
     "stock-quotes",
-    bootstrap_servers=["host.docker.internal:29092"],
+    bootstrap_servers=["localhost:29092"],
     enable_auto_commit=True,
     auto_offset_reset="earliest",
     group_id="bronze-consumer",

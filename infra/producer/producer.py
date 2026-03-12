@@ -5,13 +5,14 @@ import requests
 from kafka import KafkaProducer
 
 # Define Variables and API for live data
-API_KEY = "d5fgba1r01qnjhoc46s0d5fgba1r01qnjhoc46sg"
+# need to always replace/update API keys since after a while, it becomes unavailable API_KEY = "d5fgba1r01qnjhoc46s0d5fgba1r01qnjhoc46sg"
+API_KEY = "d6otgr1r01qk3chi3iagd6otgr1r01qk3chi3ib0"
 BASE_URL = "https://finnhub.io/api/v1/quote"
 SYMBOLS = ["AAPL", "MSFT", "TSLA", "GOOGL", "AMZN"]
 
 # Initializing Producer
 producer = KafkaProducer(
-    bootstrap_servers=["host.docker.internal:29092"],
+    bootstrap_servers=["localhost:29092"],
     value_serializer=lambda v: json.dumps(v).encode("utf-8"),
 )
 
