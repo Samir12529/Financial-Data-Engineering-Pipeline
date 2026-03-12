@@ -1,0 +1,13 @@
+dbt_stocks:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "TPANAMO-EP77795"
+      user: "SAMIRALSABBAGH"
+      password: "Snowfall@#%129"
+      database: "STOCKS_DATASTACKS"
+      warehouse: "COMPUTE_WH"
+      schema: "COMMON"
+      threads: 1
+      client_session_keep_alive: False

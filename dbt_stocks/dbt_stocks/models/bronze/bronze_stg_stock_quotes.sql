@@ -1,12 +1,12 @@
 SELECT
-    v:c::float AS current_price,
-    v:d::float AS change_amount,
-    v:dp::float AS change_percent,
-    v:h::float AS day_high,
-    v:l::float AS day_low,
-    v:o::float AS day_open,
-    v:pc::float AS prev_close,
-    v:t::timestamp AS market_timestamp,
-    v:symbol::string AS symbol,
-    v:fetched_at::timestamp AS fetched_at
+    record:c::float AS current_price,
+    record:d::float AS change_amount,
+    record:dp::float AS change_percent,
+    record:h::float AS day_high,
+    record:l::float AS day_low,
+    record:o::float AS day_open,
+    record:pc::float AS prev_close,
+    TO_TIMESTAMP_NTZ(record:t::NUMBER) AS market_timestamp,
+    record:symbol::string AS symbol,
+    TO_TIMESTAMP_NTZ(record:fetched_at::NUMBER) AS fetched_at
 FROM {{ source('raw', 'bronze_stocks_quotes_raw') }}
